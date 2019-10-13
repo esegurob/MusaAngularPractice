@@ -2,6 +2,7 @@ import {  Component } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/Model/auth.service';
 
 
 @Component(
@@ -15,7 +16,7 @@ import { NgForm } from '@angular/forms';
         public password: string;
         public errorMessage: string;
 
-        constructor( private router: Router){
+        constructor( private router: Router,private auth:AuthService){
 
 
         }
@@ -24,7 +25,14 @@ import { NgForm } from '@angular/forms';
         {
     if(form.valid)
     {
-        this.router.navigateByUrl("/Admin/main")
+        this.auth.authenticate(this.username,this.password).subscribe(response=>
+            {
+                if(response){
+                    this.router.navigateByUrl("/Admin/main");
+                }
+                this.errorMessage="Authentcation Failed";
+            })
+       
 
     }
     else
