@@ -1,5 +1,5 @@
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProductRepository } from './../../Model/product.repository';
 import { Product } from './../../Model/product.model';
 import { Component } from "@angular/core";
@@ -9,7 +9,7 @@ import { Component } from "@angular/core";
 export class ProductEditorComponent {
     editing: boolean = false;
     product: Product = new Product();
-    constructor(private repository: ProductRepository, private router: Router, activateRoute: Activate)
+    constructor(private repository: ProductRepository, private router: Router, activateRoute: ActivatedRoute)
     {
         this.editing=activateRoute.snapshot.params["mode"]=="edit";
         if (this.editing) {
@@ -23,6 +23,4 @@ export class ProductEditorComponent {
         this.router.navigateByUrl("/admin/main/products");
         // this.router.navigateByUrl()
     }
-}
-
 }
